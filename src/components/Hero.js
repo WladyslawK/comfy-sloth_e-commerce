@@ -5,7 +5,7 @@ import heroBcg from '../assets/hero-bcg.jpeg'
 import heroBcg2 from '../assets/hero-bcg-2.jpeg'
 
 const Hero = () => {
-  return <Wrapper>
+  return <Wrapper className='section-center'>
     <article className="content">
       <h1>
         design your <br/>
