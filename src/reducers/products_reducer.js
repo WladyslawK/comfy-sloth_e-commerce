@@ -10,19 +10,34 @@ import {
 } from '../actions'
 
 const products_reducer = (state, action) => {
-  switch(action.type){
+  switch (action.type) {
     case SIDEBAR_OPEN:
       return {...state, isSidebarOpen: true}
     case SIDEBAR_CLOSE:
       return {...state, isSidebarOpen: false}
+    case GET_PRODUCTS_BEGIN:
+      return {...state, products_loading: true}
+    case GET_PRODUCTS_SUCCESS:{
+      const featured_products = action.payload.products.filter(product => product.shipping === true)
+
+      return {...state, products_error: action.payload.error, featured_products}
+    }
+    case GET_PRODUCTS_ERROR:
+      return {...state, products_error: true, products_loading: false}
+
+      throw new Error(`No Matching "${action.type}" - action type`)
   }
-  return state
-  throw new Error(`No Matching "${action.type}" - action type`)
 }
 
 
 export const openSidebarAC = () => ({type: SIDEBAR_OPEN})
 export const closeSidebarAC = () => ({type: SIDEBAR_CLOSE})
+export const setProductsAC = (data) => ({type: GET_PRODUCTS_SUCCESS, payload: {products: data}})
+export const productsLoadingBeginAC = () => ({type: GET_PRODUCTS_BEGIN})
+export const productsErrorAC = (error) => ({type: GET_PRODUCTS_ERROR, payload: {error}})
+
+
+
 
 
 export default products_reducer
