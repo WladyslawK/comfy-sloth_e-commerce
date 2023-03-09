@@ -18,9 +18,9 @@ const products_reducer = (state, action) => {
     case GET_PRODUCTS_BEGIN:
       return {...state, products_loading: true}
     case GET_PRODUCTS_SUCCESS:{
-      const featured_products = action.payload.products.filter(product => product.shipping === true)
+      const feature_products = action.payload.products.filter(product => product.shipping === true)
 
-      return {...state, products_error: action.payload.error, featured_products}
+      return {...state, products_loading: false, feature_products}
     }
     case GET_PRODUCTS_ERROR:
       return {...state, products_error: true, products_loading: false}
