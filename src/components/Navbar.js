@@ -12,6 +12,7 @@ const Nav = () => {
 
   const {openSideBar, closeSideBar, isSidebarOpen} = useProductsContext()
 
+
   return <NavContainer>
     <div className="nav-center">
       <div className='nav-header'>
