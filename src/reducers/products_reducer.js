@@ -19,11 +19,18 @@ const products_reducer = (state, action) => {
       return {...state, products_loading: true}
     case GET_PRODUCTS_SUCCESS:{
       const feature_products = action.payload.products.filter(product => product.shipping === true)
-
       return {...state, products_loading: false, feature_products}
     }
     case GET_PRODUCTS_ERROR:
       return {...state, products_error: true, products_loading: false}
+
+    case GET_SINGLE_PRODUCT_BEGIN:
+      return {...state, single_product_loading: true}
+
+    case GET_SINGLE_PRODUCT_SUCCESS:
+      return {...state, single_product: action.payload.product}
+    case GET_SINGLE_PRODUCT_ERROR:
+      return {...state, single_product_error: true}
 
       throw new Error(`No Matching "${action.type}" - action type`)
   }
@@ -34,7 +41,11 @@ export const openSidebarAC = () => ({type: SIDEBAR_OPEN})
 export const closeSidebarAC = () => ({type: SIDEBAR_CLOSE})
 export const setProductsAC = (data) => ({type: GET_PRODUCTS_SUCCESS, payload: {products: data}})
 export const productsLoadingBeginAC = () => ({type: GET_PRODUCTS_BEGIN})
-export const productsErrorAC = (error) => ({type: GET_PRODUCTS_ERROR, payload: {error}})
+export const productsErrorAC = () => ({type: GET_PRODUCTS_ERROR})
+
+export const getSingleProductBeginAC = () => ({type: GET_SINGLE_PRODUCT_BEGIN})
+export const getSingleProductSuccessAC = (product) => ({type: GET_SINGLE_PRODUCT_SUCCESS, payload: {product}})
+export const getSingleProductErrorAC = () => ({type: GET_SINGLE_PRODUCT_ERROR})
 
 
 
