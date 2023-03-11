@@ -28,9 +28,9 @@ const products_reducer = (state, action) => {
       return {...state, single_product_loading: true}
 
     case GET_SINGLE_PRODUCT_SUCCESS:
-      return {...state, single_product: action.payload.product}
+      return {...state, single_product: action.payload.product, single_product_loading: false}
     case GET_SINGLE_PRODUCT_ERROR:
-      return {...state, single_product_error: true}
+      return {...state, single_product_error: true, single_product_loading: false}
 
       throw new Error(`No Matching "${action.type}" - action type`)
   }

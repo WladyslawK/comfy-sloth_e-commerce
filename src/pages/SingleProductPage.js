@@ -15,6 +15,17 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const SingleProductPage = () => {
+
+  const {fetchSingleProduct, single_product} = useProductsContext()
+  const routeParams = useParams()
+
+  useEffect(() => {
+    fetchSingleProduct(`${url}${routeParams.id}`)
+  }, [])
+
+  console.log(single_product)
+
+
   return <h4>single product page</h4>
 }
 
