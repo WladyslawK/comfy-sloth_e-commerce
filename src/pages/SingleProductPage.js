@@ -16,7 +16,8 @@ import {Link} from 'react-router-dom'
 
 const SingleProductPage = () => {
 
-    const {fetchSingleProduct,
+    const {
+        fetchSingleProduct,
         single_product: product,
         single_product_loading: loading,
         single_loading_product_error: error
@@ -29,24 +30,58 @@ const SingleProductPage = () => {
     }, [error])
 
     useEffect(() => {
-        if(error){
+        if (error) {
             setTimeout(() => {
                 history.push('/')
             }, 3000)
         }
     }, [])
 
-    console.log(product)
-
-    if(error){
+    if (error) {
         return <Error/>
     }
-    if(loading){
+    if (loading) {
         return <Loading/>
     }
 
+    const {
+        name,
+        price,
+        stock,
+        description,
+        stars,
+        reviews,
+        id: sku,
+        company,
+        images
+    } = product
 
-    return <h4>single product page</h4>
+    return <Wrapper>
+        <PageHero title={name} product={true}/>
+        <div className="section section-center page">
+            <Link to='/products' className='btn'>back to products</Link>
+            <div className="products-center">
+                <ProductImages/>
+                <section className="content">
+                    <h2>{name}</h2>
+                    <Stars/>
+                    <h5 className='price'>{formatPrice(price)}</h5>
+                    <p className='desc'>{description}</p>
+                    <p className="info">
+                        <span>Available: {stock > 0 ? 'In stock' : 'out of stock'}</span>
+                    </p>
+                    <p className="info">
+                        <span>SKU: {sku}</span>
+                    </p>
+                    <p className="info">
+                        <span>Brand: {company}</span>
+                    </p>
+                    <hr/>
+                    {stock > 0 && <AddToCart/>}
+                </section>
+            </div>
+        </div>
+    </Wrapper>
 }
 
 const Wrapper = styled.main`
